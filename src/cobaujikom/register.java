@@ -220,8 +220,8 @@ public class register extends javax.swing.JFrame {
         if (formNIK.getText().equals("") || formNama.getText().equals("")
                 || formNama.getText().equals("") || boxKelamin.getSelectedItem().equals("")
                 || formEmail.getText().equals("") || dateChooser.getDate().equals("")
-                || formNomorHP.getText().equals("") || formPassword.getPassword().equals("")
-                || formPassword1.getPassword().equals("")){  
+                || formNomorHP.getText().equals("") || formPassword.getText().equals("")
+                || formPassword1.getText().equals("")){  
             JOptionPane.showMessageDialog(this, "ada form yang masih kosong");   
             
         } else if (!Arrays.equals(formPassword.getPassword(), formPassword1.getPassword())){
@@ -237,7 +237,7 @@ public class register extends javax.swing.JFrame {
                 String sql = "INSERT INTO user VALUES ('"+formNIK.getText()+"','"
                         +formNama.getText()+"','"+boxKelamin.getSelectedItem()+"','"
                         +formEmail.getText()+"','"+umurUser+"','"
-                        +formNomorHP.getText()+"','"+formPassword.getPassword()+"')";
+                        +formNomorHP.getText()+"','"+formPassword.getText()+"')";
                     java.sql.Connection conn=(Connection)Koneksi.configDB();
                     java.sql.PreparedStatement pst=conn.prepareStatement(sql);
                     pst.execute();

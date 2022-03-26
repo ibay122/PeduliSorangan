@@ -5,8 +5,6 @@
  */
 package cobaujikom;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,6 +18,7 @@ public class dashboard extends javax.swing.JFrame {
      */
     public dashboard() {
         initComponents();
+        setResizable(false);
     }
 
     /**

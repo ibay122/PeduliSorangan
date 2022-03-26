@@ -180,10 +180,6 @@ public class login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Ada yang salah", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void gantiText(){
-       
-    }
     
     /**
      * @param args the command line arguments
