@@ -5,6 +5,8 @@
  */
 package cobaujikom;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 /**
@@ -33,8 +35,8 @@ public class dashboard extends javax.swing.JFrame {
         isiData = new javax.swing.JButton();
         lihatData = new javax.swing.JButton();
         keluarSesi = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        labelNama = new javax.swing.JLabel();
+        labelNIK = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -62,14 +64,14 @@ public class dashboard extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel5.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel5.setText("Halo, Ukas Gabrus!");
+        labelNama.setBackground(new java.awt.Color(204, 204, 204));
+        labelNama.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        labelNama.setForeground(new java.awt.Color(204, 204, 204));
+        labelNama.setText("user");
 
-        jLabel6.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel6.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel6.setText("3126517219317293");
+        labelNIK.setBackground(new java.awt.Color(204, 204, 204));
+        labelNIK.setForeground(new java.awt.Color(204, 204, 204));
+        labelNIK.setText("nik");
 
         jLabel7.setBackground(new java.awt.Color(204, 204, 204));
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -86,8 +88,8 @@ public class dashboard extends javax.swing.JFrame {
                     .addGroup(dashboardPanelLayout.createSequentialGroup()
                         .addGroup(dashboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel5))
+                            .addComponent(labelNIK)
+                            .addComponent(labelNama))
                         .addContainerGap(329, Short.MAX_VALUE))
                     .addGroup(dashboardPanelLayout.createSequentialGroup()
                         .addComponent(isiData)
@@ -101,9 +103,9 @@ public class dashboard extends javax.swing.JFrame {
             dashboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dashboardPanelLayout.createSequentialGroup()
                 .addGap(72, 72, 72)
-                .addComponent(jLabel5)
+                .addComponent(labelNama)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
+                .addComponent(labelNIK)
                 .addGap(45, 45, 45)
                 .addComponent(jLabel7)
                 .addGap(83, 83, 83)
@@ -194,6 +196,7 @@ public class dashboard extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new dashboard().setVisible(true);
+                
             }
         });
     }
@@ -201,10 +204,10 @@ public class dashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dashboardPanel;
     private javax.swing.JButton isiData;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JButton keluarSesi;
+    public javax.swing.JLabel labelNIK;
+    public javax.swing.JLabel labelNama;
     private javax.swing.JButton lihatData;
     // End of variables declaration//GEN-END:variables
 }
