@@ -5,6 +5,11 @@
  */
 package cobaujikom;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Administrator
@@ -16,6 +21,8 @@ public class catatanPerjalanan extends javax.swing.JFrame {
      */
     public catatanPerjalanan() {
         initComponents();
+        setResizable(false);
+        load_table();
     }
 
     /**
@@ -29,18 +36,17 @@ public class catatanPerjalanan extends javax.swing.JFrame {
 
         catatanPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        table_perjalanan = new javax.swing.JTable();
         jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(614, 436));
 
         catatanPanel.setBackground(new java.awt.Color(38, 38, 38));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        table_perjalanan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -51,7 +57,7 @@ public class catatanPerjalanan extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(table_perjalanan);
 
         jLabel1.setBackground(new java.awt.Color(204, 204, 204));
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -73,14 +79,15 @@ public class catatanPerjalanan extends javax.swing.JFrame {
             catatanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(catatanPanelLayout.createSequentialGroup()
                 .addGap(76, 76, 76)
-                .addGroup(catatanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(catatanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(catatanPanelLayout.createSequentialGroup()
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1))))
+                .addGroup(catatanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(catatanPanelLayout.createSequentialGroup()
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1))
+                    .addGroup(catatanPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(193, 193, 193)))
                 .addContainerGap(85, Short.MAX_VALUE))
             .addGroup(catatanPanelLayout.createSequentialGroup()
                 .addComponent(jButton2)
@@ -127,10 +134,37 @@ public class catatanPerjalanan extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        this.dispose();
-        
-       new dashboard().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void load_table(){
+        DefaultTableModel model = new DefaultTableModel(){
+            @Override
+                public boolean isCellEditable(int row, int column) {
+                    //all cells false
+                    return false;
+                }
+        };
+        model.addColumn("No");
+        model.addColumn("Tanggal");
+        model.addColumn("Jam");
+        model.addColumn("Lokasi");
+        model.addColumn("Suhu Tubuh");      
+        
+        //menampilkan data database kedalam tabel
+        try {
+            String sql = "SELECT * FROM perjalanan WHERE added_by ='" + Emp.empId+"';";
+            java.sql.Connection conn=(Connection)Koneksi.configDB();
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){
+                model.addRow(new Object[]{res.getString(1),res.getString(2),res.getString(3),res.getString(4),res.getString(5)});
+            }
+            table_perjalanan.setModel(model);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Ada yang salah", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -172,7 +206,7 @@ public class catatanPerjalanan extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable table_perjalanan;
     // End of variables declaration//GEN-END:variables
 }

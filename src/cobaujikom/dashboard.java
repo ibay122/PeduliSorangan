@@ -5,6 +5,8 @@
  */
 package cobaujikom;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -140,15 +142,28 @@ public class dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void isiDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isiDataActionPerformed
-        this.dispose();
+        try {
+            String sql1 = "SELECT * FROM user WHERE NIK ='" + labelNIK.getText()+"';";
+            java.sql.Connection conn1 = (Connection)Koneksi.configDB();
+            java.sql.Statement stm = conn1.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql1);
+            
+            while (res.next()){
+                isiPerjalanan a = new isiPerjalanan();
+                a.labelNIK.setText("Logged in as " + Emp.empId);
+                System.out.println(Emp.empId);
+                new isiPerjalanan().setVisible(true);              
+            }
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Ada yang salah", JOptionPane.INFORMATION_MESSAGE);
+        }
         
-        new isiPerjalanan().setVisible(true);
+
     }//GEN-LAST:event_isiDataActionPerformed
 
     private void lihatDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lihatDataActionPerformed
-       this.dispose();
-        
-       new catatanPerjalanan().setVisible(true);
+        new catatanPerjalanan().setVisible(true);
     }//GEN-LAST:event_lihatDataActionPerformed
 
     private void keluarSesiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_keluarSesiActionPerformed

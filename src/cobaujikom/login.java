@@ -144,8 +144,7 @@ public class login extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
-            String sql = "SELECT * FROM user WHERE NIK='"+formNIK.getText()+
-                    "' AND password='"+formPassword.getText()+"'";
+            String sql = "SELECT * FROM user WHERE NIK='"+formNIK.getText()+"' AND password='"+formPassword.getText()+"'";
             java.sql.Connection conn = (Connection)Koneksi.configDB();
             java.sql.PreparedStatement pst = conn.prepareStatement(sql);
             ResultSet r = pst.executeQuery();
@@ -153,23 +152,26 @@ public class login extends javax.swing.JFrame {
             int baris = 0;
             while (r.next()){
                 baris = r.getRow();
+                String id = r.getString(1);
+                Emp.empId = id;
             }
             
             if (baris == 1){
                 JOptionPane.showMessageDialog(null, "Login sukses",
                         "Sukses", JOptionPane.INFORMATION_MESSAGE);             
 
-                        String sql1 = "SELECT * FROM user WHERE NIK ='" + formNIK.getText()+"';";
-                        java.sql.Connection conn1 = (Connection)Koneksi.configDB();
-                        java.sql.Statement stm = conn1.createStatement();
-                        java.sql.ResultSet res = stm.executeQuery(sql1);
+                String sql1 = "SELECT * FROM user WHERE NIK ='" + formNIK.getText()+"';";
+                java.sql.Connection conn1 = (Connection)Koneksi.configDB();
+                java.sql.Statement stm = conn1.createStatement();
+                java.sql.ResultSet res = stm.executeQuery(sql1);
 
-                        while(res.next()){
-                            dashboard d = new dashboard();
-                            d.labelNama.setText(res.getString("namalengkap"));
-                            d.labelNIK.setText(res.getString("NIK"));
-                            d.setVisible(true);
-                            this.dispose();                     } 
+                while(res.next()){
+                    dashboard d = new dashboard();
+                    d.labelNama.setText(res.getString("namalengkap"));
+                    d.labelNIK.setText(Emp.empId);
+                    d.setVisible(true);
+                    this.dispose();
+                } 
             } else {
                 JOptionPane.showMessageDialog(null,
                         "Silahkan cek kembali username atau password",

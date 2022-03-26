@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.time.LocalTime;
 import javax.swing.JOptionPane;
 import org.joda.time.LocalDate;
+import java.lang.String;
 
 /**
  *
@@ -23,6 +24,7 @@ public class isiPerjalanan extends javax.swing.JFrame {
      */
     public isiPerjalanan() {
         initComponents();
+        labelNIK.setText(String.valueOf(Emp.empId));
     }
 
     /**
@@ -48,27 +50,28 @@ public class isiPerjalanan extends javax.swing.JFrame {
         timeSettings.setDisplayToggleTimeMenuButton(false);
         timeSettings.setInitialTimeToNow();
         fieldJam = new com.github.lgooddatepicker.components.TimePicker(timeSettings);
+        labelNIK = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         isiPanel.setBackground(new java.awt.Color(38, 38, 38));
         isiPanel.setPreferredSize(new java.awt.Dimension(614, 436));
 
+        jLabel4.setText("Tanggal");
         jLabel4.setBackground(new java.awt.Color(204, 204, 204));
         jLabel4.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel4.setText("Tanggal");
 
+        jLabel5.setText("Jam");
         jLabel5.setBackground(new java.awt.Color(204, 204, 204));
         jLabel5.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel5.setText("Jam");
 
+        jLabel6.setText("Lokasi yang Dikunjungi");
         jLabel6.setBackground(new java.awt.Color(204, 204, 204));
         jLabel6.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel6.setText("Lokasi yang Dikunjungi");
 
+        jLabel7.setText("Suhu Tubuh (Pakai Titik)");
         jLabel7.setBackground(new java.awt.Color(204, 204, 204));
         jLabel7.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel7.setText("Suhu Tubuh (Pakai Titik)");
 
         tombolKirim.setText("Kirim Data");
         tombolKirim.addActionListener(new java.awt.event.ActionListener() {
@@ -76,6 +79,8 @@ public class isiPerjalanan extends javax.swing.JFrame {
                 tombolKirimActionPerformed(evt);
             }
         });
+
+        labelNIK.setText("user");
 
         javax.swing.GroupLayout isiPanelLayout = new javax.swing.GroupLayout(isiPanel);
         isiPanel.setLayout(isiPanelLayout);
@@ -102,6 +107,10 @@ public class isiPerjalanan extends javax.swing.JFrame {
                                 .addComponent(fieldJam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(83, 83, 83))
+            .addGroup(isiPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelNIK)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         isiPanelLayout.setVerticalGroup(
             isiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,7 +133,9 @@ public class isiPerjalanan extends javax.swing.JFrame {
                     .addComponent(jLabel7))
                 .addGap(45, 45, 45)
                 .addComponent(tombolKirim)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addComponent(labelNIK)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -155,35 +166,36 @@ public class isiPerjalanan extends javax.swing.JFrame {
         try{
             LocalDate tanggal = new LocalDate(dateChooser.getDate());           
             
-            String sql = "INSERT INTO perjalanan (`tanggal`, `jam`, `lokasi`, `suhu_tubuh`) VALUES ('"+tanggal+"','"
+            String sql = "INSERT INTO perjalanan (`tanggal`, `jam`, `lokasi`, `suhu_tubuh`, `added_by`) VALUES ('"+tanggal+"','"
                         +fieldJam.getText()+"','"+fieldLokasi.getText()+"','"
-                        +fieldSuhu.getText()+"')";
+                        +fieldSuhu.getText()+"','"+Emp.empId+"')";
             java.sql.Connection conn=(Connection)Koneksi.configDB();
             java.sql.PreparedStatement pst=conn.prepareStatement(sql);
             System.out.println(sql);
             pst.execute();
             
-            JOptionPane.showMessageDialog(this, "Anda berhasil mendaftar, silahkan masuk");
+            JOptionPane.showMessageDialog(null, "Data telah terkirim", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+        
+        int jawab = JOptionPane.showOptionDialog(this, 
+                    "Tambah data lagi?", 
+                    "Ya halo", 
+                    JOptionPane.YES_NO_OPTION, 
+                    JOptionPane.QUESTION_MESSAGE, null, null, null);
+    
+        if(jawab == JOptionPane.NO_OPTION){
+            this.dispose();
+        }
+        
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Ada yang salah", JOptionPane.INFORMATION_MESSAGE);
         }              
     
-//        JOptionPane.showMessageDialog(null, "Data telah terkirim", "Sukses", JOptionPane.INFORMATION_MESSAGE);
-//        
-//        int jawab = JOptionPane.showOptionDialog(this, 
-//                    "Tambah data lagi?", 
-//                    "Ya halo", 
-//                    JOptionPane.YES_NO_OPTION, 
-//                    JOptionPane.QUESTION_MESSAGE, null, null, null);
-//    
-//        if(jawab == JOptionPane.NO_OPTION){
-//            this.dispose();
-//            new dashboard().setVisible(true);
-//        }
-    }//GEN-LAST:event_tombolKirimActionPerformed
-    
-    private void setIs24HourView() {
         
+    }//GEN-LAST:event_tombolKirimActionPerformed
+
+    public void storeNIK(String NIK) {
+        String nik = NIK;
+        System.out.println(nik);
     }
     
     /**
@@ -215,6 +227,7 @@ public class isiPerjalanan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    public javax.swing.JLabel labelNIK;
     private javax.swing.JButton tombolKirim;
     // End of variables declaration//GEN-END:variables
 }
