@@ -150,8 +150,8 @@ public class dashboard extends javax.swing.JFrame {
             
             while (res.next()){
                 isiPerjalanan a = new isiPerjalanan();
-                a.labelNIK.setText("Logged in as " + Emp.empId);
-                System.out.println(Emp.empId);
+                a.labelNIK.setText("Logged in as " + Usr.usrId);
+                System.out.println(Usr.usrId);
                 new isiPerjalanan().setVisible(true);              
             }
             

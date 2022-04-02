@@ -40,7 +40,7 @@ public class catatanPerjalanan extends javax.swing.JFrame {
         
         //menampilkan data database kedalam tabel
         try {
-            String sql = "SELECT * FROM perjalanan WHERE added_by ='" + Emp.empId+"';";
+            String sql = "SELECT * FROM perjalanan WHERE added_by ='" + Usr.usrId+"';";
             java.sql.Connection conn=(Connection)Koneksi.configDB();
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
@@ -297,7 +297,7 @@ public class catatanPerjalanan extends javax.swing.JFrame {
             "', jam = '"+fieldJam.getText()+
             "', lokasi = '"+fieldLokasi.getText()+
             "', suhu_tubuh = '"+fieldSuhu.getText()+
-            "', added_by = '"+Emp.empId+
+            "', added_by = '"+Usr.usrId+
             "' WHERE id_perjalanan = '"+fieldID.getText()+"'";
             java.sql.Connection conn=(Connection)Koneksi.configDB();
             java.sql.PreparedStatement pst=conn.prepareStatement(sql);

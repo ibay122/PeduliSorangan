@@ -10,5 +10,5 @@ package cobaujikom;
  * @author Administrator
  */
 public class Usr {
-    public static int usrId;
+    public static String usrId;
 }

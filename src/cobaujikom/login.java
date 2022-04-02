@@ -153,7 +153,7 @@ public class login extends javax.swing.JFrame {
             while (r.next()){
                 baris = r.getRow();
                 String id = r.getString(1);
-                Emp.empId = id;
+                Usr.usrId = id;
             }
             
             if (baris == 1){
@@ -168,7 +168,7 @@ public class login extends javax.swing.JFrame {
                 while(res.next()){
                     dashboard d = new dashboard();
                     d.labelNama.setText(res.getString("namalengkap"));
-                    d.labelNIK.setText(Emp.empId);
+                    d.labelNIK.setText(Usr.usrId);
                     d.setVisible(true);
                     this.dispose();
                 } 

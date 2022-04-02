@@ -24,7 +24,7 @@ public class isiPerjalanan extends javax.swing.JFrame {
      */
     public isiPerjalanan() {
         initComponents();
-        labelNIK.setText(String.valueOf(Emp.empId));
+        labelNIK.setText(String.valueOf(Usr.usrId));
     }
 
     /**
@@ -168,7 +168,7 @@ public class isiPerjalanan extends javax.swing.JFrame {
             
             String sql = "INSERT INTO perjalanan (`tanggal`, `jam`, `lokasi`, `suhu_tubuh`, `added_by`) VALUES ('"+tanggal+"','"
                         +fieldJam.getText()+"','"+fieldLokasi.getText()+"','"
-                        +fieldSuhu.getText()+"','"+Emp.empId+"')";
+                        +fieldSuhu.getText()+"','"+Usr.usrId+"')";
             java.sql.Connection conn=(Connection)Koneksi.configDB();
             java.sql.PreparedStatement pst=conn.prepareStatement(sql);
             System.out.println(sql);
